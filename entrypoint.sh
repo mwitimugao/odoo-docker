@@ -28,6 +28,9 @@ check_config "db_port" "$PORT"
 check_config "db_user" "$USER"
 check_config "db_password" "$PASSWORD"
 
+sudo git  -C  /opt/custom-addons pull https://token:${TOKEN}@github.com/mwitimugao/custom-addons main
+
+
 case "$1" in
     -- | odoo)
         shift

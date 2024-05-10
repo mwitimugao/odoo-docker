@@ -40,6 +40,7 @@ RUN apt-get update && \
         libldap2-dev \
         libsasl2-dev \
         libpq-dev \
+	git sudo \
     && curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.buster_amd64.deb \
     && echo 'ea8277df4297afc507c61122f3c349af142f31e5 wkhtmltox.deb' | sha1sum -c - \
     && apt-get install -y --no-install-recommends ./wkhtmltox.deb \
@@ -80,6 +81,13 @@ RUN pip3 install wheel
 RUN pip3 install -r /opt/odoo/requirements.txt
 
 RUN cp /opt/odoo/setup/odoo /opt/odoo/odoo-bin && chmod +x /opt/odoo/odoo-bin
+
+COPY ./custom-addons /opt/custom-addons
+
+RUN adduser odoo sudo
+
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
 
 # Copy entrypoint script and Odoo configuration file
 COPY ./entrypoint.sh /

@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   web:
-    image: mwitimugao/odoo-udemy15:2.1
+    image: mwitimugao/odoo-udemy15:3
     depends_on:
       - db
     ports:
