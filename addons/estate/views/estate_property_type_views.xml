@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="estate_property_type_view_tree" model="ir.ui.view">
+        <field name="name">estate.property.type.view.tree</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <tree string="Channel">
+                <field name="sequence" widget="handle"/>
+                <field name="name" string="Property Type"/>
+                <field name="offer_ids" string="Offer IDS"/>
+                <field name="offer_count" string="Offer Count"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_view_property_type_offers" model="ir.actions.act_window">
+        <field name="name">Offers</field>
+        <field name="res_model">estate.property.offer</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('property_type_id', '=', active_id)]</field>
+        <field name="context">{}</field>
+    </record>
+
+    <record id="estate_property_type_view_form" model="ir.ui.view">
+        <field name="name">estate.property.type_view.form</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="action"
+                                name="%(action_view_property_type_offers)d"
+                                icon="fa-star">
+                            <field string="Offers" name="offer_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1 class="mb32">
+                            <field name="name" string="Property Type" class="mb16"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="property_ids">
+                            <tree string="Properties">
+                                <field name="name"/>
+                                <field name="expected_price"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="estate_property_type_view_search" model="ir.ui.view">
+        <field name="name">estate.property.type.view.search</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Property Type"
+                       filter_domain="[
+                       ('name','ilike',self),
+                       ]"/>
+                <separator/>
+
+            </search>
+        </field>
+    </record>
+
+
+    <record id="estate_property_type_model_action" model="ir.actions.act_window">
+        <field name="name">Property Types</field>
+        <field name="res_model">estate.property.type</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first property type!
+            </p>
+        </field>
+    </record>
+</odoo>
